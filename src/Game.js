@@ -14,8 +14,27 @@ export const Game = {
 		// 2d array of size CITY_SIZE[0] by CITY_SIZE[1]
 		// let empty_city = Array(CITY_SIZE[0]).fill().map(() => Array(CITY_SIZE[1]).fill(NODE_VALUES.Empty));
 		let thisCity = new City(4, 6);
+
+		let p1_upgrades = {
+			train_speed: 50,
+			train_capacity: 20,
+			num_lines: 0,
+			train_fare: 10,
+			popularity: 100,
+		}
+
+		let p2_upgrades = {
+			train_speed: 50,
+			train_capacity: 20,
+			num_lines: 0,
+			train_fare: 10,
+			popularity: 100,
+		}
+
 		return {
 			city: thisCity,
+			p1_upgrades: p1_upgrades,
+			p2_upgrades: p2_upgrades,
 		};
 	},
 
