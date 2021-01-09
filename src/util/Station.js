@@ -1,12 +1,15 @@
+const NODE_VALUES = require('./Constants.json');
+
 class Station {
 	/**
-     * @param {String} name the name of the city
-	 * @param {number} x the width of the grid layout of the city
-	 * @param {number} y the height of the grid layout of the city
+	 * @param {String} name the name of the city
+	 * @param {number} sides
+	 * @param {number} owner Player this belongs to (one of NODE_VALUES), or EMPTY for none
 	 */
-	constructor(name, sides) {
-        this.name = name;
-        this.sides = sides;
+	constructor(name, sides, owner=NODE_VALUES.Empty) {
+		this.name = name;
+		this.sides = sides;
+		this.owner = owner;
 	}
 }
 
