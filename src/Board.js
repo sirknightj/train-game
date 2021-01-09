@@ -24,7 +24,7 @@ export class Board extends React.Component {
 				const id = i * CITY_SIZE[1] + j;
 				cells.push(
 					<td key={id} onClick={() => this.onClick(i, j)}>
-						{this.props.G.city.grid[i][j]}
+						{JSON.stringify(this.props.G.city.grid[i][j])}
 					</td>
 				);
 			}
