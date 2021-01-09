@@ -22,7 +22,13 @@ export const Game = {
 	},
 
 	turn: {
-		moveLimit: 1,
+		onBegin: (G, ctx) => {
+			// called at beginning of turn
+		},
+
+		onEnd: (G, ctx) => {
+			// called at end of turn
+		}
 	},
 
 	moves: {
@@ -47,4 +53,9 @@ export const Game = {
 	endIf: (G, ctx) => {
 		// not returning means game does not end
 	},
+
+	// The minimum and maximum number of players supported
+	// (This is only enforced when using the Lobby server component.)
+	minPlayers: 2,
+	maxPlayers: 2,
 };

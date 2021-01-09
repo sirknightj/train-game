@@ -1,0 +1,32 @@
+.PlayerView {
+  &.active {
+    background: lightgreen;
+  }
+  &:not(.active) {
+    cursor: not-allowed;
+  }
+
+  .player-info {
+    > span {
+      display: block;
+    }
+  }
+
+  .buttons button {
+    padding: 16px;
+    margin-left: 16px;
+
+    border: 0;
+    background: #eee;
+    cursor: pointer;
+  }
+
+  &:not(.active) .buttons button {
+    cursor: not-allowed;
+  }
+
+  &.active .buttons button:hover {
+    background: green;
+  }
+
+}

@@ -1,10 +1,21 @@
 import { Client } from 'boardgame.io/react';
+import { Local } from 'boardgame.io/multiplayer';
+import { Header } from './Header';
 import { Game } from './Game';
-import { Board } from './Board';
+import { PlayerView } from './PlayerView';
 
-const App = Client({
+const GameClient = Client({
 	game: Game,
-	board: Board,
+	board: PlayerView,
+	multiplayer: Local(),
 });
+
+const App = () => (
+	<div>
+		<Header />
+		<GameClient playerID="0" />
+		<GameClient playerID="1" />
+	</div>
+);
 
 export default App;
