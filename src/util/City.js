@@ -1,19 +1,19 @@
 const CONSTANTS = require('./Constants.json');
 const Station = require('./Station.js');
+const CityNames = require('./CityNames.json');
 
 class City {
 	/**
-     * @param {String} name the name of the city
 	 * @param {number} x the width of the grid layout of the city
 	 * @param {number} y the height of the grid layout of the city
 	 */
-	constructor(name, x, y) {
+	constructor(x, y) {
         this.grid = new Array(x);
         for (let i = 0; i < x; i++) {
             this.grid[i] = new Array(y).fill(CONSTANTS.Empty);
         }
 
-        this.name = name;
+        this.name = CityNames.names.splice(Math.floor(Math.random() * CityNames.names.length), 1);
 		this.x = x;
         this.y = y;
         

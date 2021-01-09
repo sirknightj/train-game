@@ -13,7 +13,7 @@ export const Game = {
 	setup: () => {
 		// 2d array of size CITY_SIZE[0] by CITY_SIZE[1]
 		// let empty_city = Array(CITY_SIZE[0]).fill().map(() => Array(CITY_SIZE[1]).fill(NODE_VALUES.Empty));
-		let thisCity = new City('Portland', 4, 6);
+		let thisCity = new City(4, 6);
 		return {
 			city: thisCity,
 		};
