@@ -1,0 +1,76 @@
+{
+  "upgrades": [
+    {
+      "title" : "Advertising",
+      "train_speed" : 0,
+      "train_capacity" : 0,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : 25,
+      "cost" : 100
+    },
+    {
+      "title" : "Smaller Seats",
+      "train_speed" : 0,
+      "train_capacity" : 10,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : -10,
+      "cost" : 100
+    },
+    {
+      "title" : "Wider Seats",
+      "train_speed" : 0,
+      "train_capacity" : -10,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : 20,
+      "cost" : 100
+    },
+    {
+      "title" : "Higher Fare",
+      "train_speed" : 0,
+      "train_capacity" : 0,
+      "num_lines" : 0,
+      "train_fare" : 2,
+      "popularity" : -10,
+      "cost" : 100
+    },
+    {
+      "title" : "Lower Fare",
+      "train_speed" : 0,
+      "train_capacity" : 0,
+      "num_lines" : 0,
+      "train_fare" : -1,
+      "popularity" : 15,
+      "cost" : 100
+    },
+    {
+      "title" : "Aerodynamic Trains",
+      "train_speed" : 20,
+      "train_capacity" : 0,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : 10,
+      "cost" : 100
+    },
+    {
+      "title" : "Aerodynamic Trains",
+      "train_speed" : 20,
+      "train_capacity" : 0,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : 10,
+      "cost" : 100
+    },
+    {
+      "title" : "Extra Carriage",
+      "train_speed" : -5,
+      "train_capacity" : 20,
+      "num_lines" : 0,
+      "train_fare" : 0,
+      "popularity" : 0,
+      "cost" : 100
+    }
+  ]
+}
