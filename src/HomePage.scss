@@ -1,0 +1,147 @@
+@mixin gradient-text($colors...) {
+	background: linear-gradient(60deg, $colors);
+	background-size: 400% 400%;
+	background-position: 0% 50%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@keyframes rotateBackgroundImage {
+	from {
+		background-position: 100% 50%;
+	}
+	to {
+		background-position: 0% 50%;
+	}
+}
+
+.HomePage {
+	max-width: 800px;
+	margin: 96px auto;
+	line-height: 1.5em;
+
+	.links {
+		padding-bottom: 96px;
+	}
+
+	h1 {
+		text-align: center;
+		letter-spacing: 5px;
+		font-size: 2.5em;
+		line-height: 1;
+
+		@include gradient-text(
+			#007bff,
+			#fd7e14,
+			#333
+		);
+
+		animation: rotateBackgroundImage 2s ease-out;
+	}
+
+	h2 {
+		margin-top: 64px;
+
+		span {
+			@include gradient-text(
+				#28a745,
+				#28a745,
+				#28a745,
+				#28a745,
+				#17a2b8,
+				#6610f2,
+				#dc3545,
+				#ffc107,
+				#28a745,
+				#28a745,
+				#28a745,
+			);
+
+			animation: rotateBackgroundImage 4s infinite;
+		}
+	}
+
+	p {
+		margin: 16px 0;
+	}
+
+	ul {
+		margin-left: 32px;
+
+		li {
+			margin-bottom: 16px;
+		}
+	}
+
+	li {
+		&:first-of-type strong {
+			@include gradient-text(
+				#6610f2,
+				#e83e8c
+			);
+		}
+		&:nth-of-type(2) strong {
+			@include gradient-text(
+				#dc3545,
+				#ffc107
+			);
+		}
+		&:last-of-type strong {
+			@include gradient-text(
+				#28a745,
+				#007bff
+			);
+		}
+	}
+
+	li strong {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		padding-right: 6px;
+	}
+}
+
+.links {
+	display: flex;
+	flex-flow: row-wrap;
+	justify-content: space-between;
+	padding-top: 16px;
+
+	a {
+		display: block;
+		padding: 24px;
+		width: 280px;
+		border-radius: 16px;
+		box-shadow: 0 1px 2px #aaa;
+		text-align: center;
+		text-decoration: none;
+		color: inherit;
+
+		border: 4px solid #555;
+		transition: 0.15s ease-out;
+
+		&:first-of-type {
+		  $color: #007bff;
+
+		  border-color: $color;
+
+		  &:hover {
+			  background: $color;
+			  color: white;
+		  }
+		}
+		&:last-of-type {
+		  $color: #fd7e14;
+
+		  border-color: $color;
+
+		  &:hover {
+			  background: $color;
+			  color: white;
+		  }
+		}
+
+	}
+
+}
