@@ -75,6 +75,18 @@ export const Game = {
 		onEnd: (G, ctx) => {
 			// called at end of turn
 
+			// refund an incomplete track
+			if (G.tracks.length && !G.tracks[G.tracks.length - 1].complete) {
+				const lastTrack = G.tracks.pop();
+				const cost = lastTrack.path.length * TRACK_COST_PER_UNIT;
+				if (lastTrack.owner === NODE_VALUES.Player1) {
+					G.player1.money += cost;
+				} else {
+					G.player2.money += cost;
+				}
+			}
+
+
 			if (ctx.turn === NODE_VALUES.Player1) {
 				return;
 			}
