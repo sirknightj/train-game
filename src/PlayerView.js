@@ -16,6 +16,10 @@ export class PlayerView extends React.Component {
 		this.props.events.endTurn();
 	}
 
+	clearTrack() {
+		this.props.moves.clearTrack();
+	}
+
 	render() {
 		let classes = ['PlayerView', `player-${this.props.playerID}`];
 		if (this.props.isActive) {
@@ -56,6 +60,7 @@ export class PlayerView extends React.Component {
 				<div className="buttons">
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
 					<button className="redo" onClick={() => this.redo()}>Redo</button>
+					<button disabled={!this.props.G.tracks.length || this.props.G.tracks[this.props.G.tracks.length - 1].complete} className="clear" onClick={() => this.clearTrack()}>Clear Unfinished Track</button>
 					<button className="end-turn" onClick={() => this.endTurn()}>End turn</button>
 				</div>
 			</div>

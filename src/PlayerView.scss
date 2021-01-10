@@ -140,5 +140,15 @@
         color: white;
       }
     }
+    .clear {
+      $color: #1d191a;
+
+      border-color: $color;
+      color: $color;
+      &:hover {
+        background: $color;
+        color: white;
+      }
+    }
   }
 }
