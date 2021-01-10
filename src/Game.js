@@ -286,10 +286,15 @@ export const Game = {
 				if (player[ctx.currentPlayer].money >= upgrade.cost) {
 					player[ctx.currentPlayer].money -= upgrade.cost;
 					p_upgrade[ctx.currentPlayer].train_speed += upgrade.train_speed;
+					p_upgrade[ctx.currentPlayer].train_speed = Math.max(p_upgrade[ctx.currentPlayer].train_speed, 0);
 					p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+					p_upgrade[ctx.currentPlayer].train_capacity = Math.max(p_upgrade[ctx.currentPlayer].train_capacity, 0);
 					p_upgrade[ctx.currentPlayer].train_fare += upgrade.train_fare;
+					p_upgrade[ctx.currentPlayer].train_fare = Math.max(p_upgrade[ctx.currentPlayer].train_fare, 0);
 					p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+					p_upgrade[ctx.currentPlayer].train_capacity = Math.max(p_upgrade[ctx.currentPlayer].train_capacity, 0);
 					p_upgrade[ctx.currentPlayer].popularity += upgrade.popularity;
+					p_upgrade[ctx.currentPlayer].popularity = Math.max(p_upgrade[ctx.currentPlayer].popularity, 0);
 				} else {
 					return INVALID_MOVE;
 				}
