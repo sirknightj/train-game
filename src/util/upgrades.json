@@ -55,15 +55,6 @@
       "cost": 100
     },
     {
-      "title": "Aerodynamic Trains",
-      "train_speed": 20,
-      "train_capacity": 0,
-      "num_lines": 0,
-      "train_fare": 0,
-      "popularity": 10,
-      "cost": 100
-    },
-    {
       "title": "Extra Carriage",
       "train_speed": -5,
       "train_capacity": 20,
