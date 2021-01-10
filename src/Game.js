@@ -5,6 +5,7 @@ const { createTrack, addCheckpoint } = require('./util/Track');
 const NODE_VALUES = require('./util/Constants.json');
 
 const TRACK_COST_PER_UNIT = 10;
+const STARTING_FARE = 10;
 
 // checks if array[i][j] is valid
 function isInBounds(array, i, j) {
@@ -35,7 +36,7 @@ export const Game = {
 			train_speed: 50,
 			train_capacity: 15,
 			num_lines: 0,
-			train_fare: 10,
+			train_fare: STARTING_FARE,
 			popularity: 100,
 		}
 
@@ -43,7 +44,7 @@ export const Game = {
 			train_speed: 50,
 			train_capacity: 15,
 			num_lines: 0,
-			train_fare: 10,
+			train_fare: STARTING_FARE,
 			popularity: 100,
 		}
 
@@ -113,8 +114,10 @@ export const Game = {
 				}
 
 				// Calculate additional number of passengers that leave or join due to hidden properties
-				travelersBetweenStations *= (upgrades.train_speed / 100);
+				travelersBetweenStations *= Math.abs((upgrades.train_speed + track.path.length / 2) / 100);
 				travelersBetweenStations *= (upgrades.popularity / 100);
+
+				travelersBetweenStations *= (STARTING_FARE / upgrades.train_fare);
 
 				travelersBetweenStations = Math.floor(travelersBetweenStations);
 				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);

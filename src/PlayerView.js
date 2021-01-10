@@ -24,8 +24,10 @@ export class PlayerView extends React.Component {
 
 		let p_name = (this.props.playerID === '0') ? 'player1' : 'player2';
 		let opp_name = (this.props.playerID === '0') ? 'player2' : 'player1';
+		let p_upgr = (this.props.playerID === '0') ? 'p1_upgrades' : 'p2_upgrades';
 		let playerData = this.props.G[p_name];
 		let opponentData = this.props.G[opp_name];
+		let upgrades = this.props.G[p_upgr];
 
 		return (
 			<div className={classes.join(' ')}>
@@ -39,6 +41,7 @@ export class PlayerView extends React.Component {
 				</div>
 				<div className="player-info">
 					<span><strong>Passengers Last Week:</strong> {playerData.passengers_delivered_this_week}</span>
+					<span><strong>Fare:</strong> ${upgrades.train_fare}</span>
 					<span><strong>Income From Fares Last Week:</strong> ${opponentData.money_earned_this_week}</span>
 				</div>
 				<Board {...this.props} />
