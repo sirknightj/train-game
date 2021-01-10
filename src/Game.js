@@ -16,6 +16,8 @@ function isInBounds(array, i, j) {
 
 export const Game = {
 	setup: () => {
+		this.newStation = false;
+
 		let { name, grid } = new City(15, 30, stationNames.names);
 
 		let player1 = {
@@ -72,6 +74,20 @@ export const Game = {
 				let incomeToAward = (Math.floor((ctx.turn - 1) / 2) + 4) * 25;
 				G.player1.money += incomeToAward;
 				G.player2.money += incomeToAward;
+
+				if (ctx.turn > 4 && this.newStation) {
+					this.newStation = false;
+					for (let i = 0; i < 3; i++) {
+						let i = Math.floor(G.grid.length * Math.random());
+						let j = Math.floor(Math.random() * G.grid[0].length);
+						if (G.grid[i][j] === NODE_VALUES.Empty) {
+							G.grid[i][j] = new Station(stationNames.names.splice(Math.floor(Math.random() * stationNames.length), 1), Math.floor(Math.random() * 5));
+							break;
+						}
+					}
+				} else {
+					this.newStation = true;
+				}
 			}
 		},
 

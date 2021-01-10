@@ -8,6 +8,9 @@ class Station {
 	 * @param {number} demand  (number of people at a station who want to take the train)
 	 */
 	constructor(name, sides, owner=NODE_VALUES.Empty, demand) {
+		if (sides < 3) {
+			sides = 3;
+		}
 		this.name = name;
 		this.sides = sides;
 		this.owner = owner;
