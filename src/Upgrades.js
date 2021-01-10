@@ -9,7 +9,8 @@ export class Upgrades extends React.Component {
 
         this.state = {
             upgrade : options.upgrades[Math.floor(Math.random() * options.upgrades.length)],
-            purchased : false
+            purchased : false,
+            lastTurn : 0
         };
     }
 
@@ -20,10 +21,10 @@ export class Upgrades extends React.Component {
         }
 
         if (!this.state.purchased) {
-            alert(`Suggessfully purchased ${this.state.upgrade.title}!`);
+            alert(`Successfully purchased ${this.state.upgrade.title}!`);
             this.props.moves.purchaseUpgrade(this.state.upgrade);
             this.setState({
-                purchased : true
+                upgrade : options.upgrades[Math.floor(Math.random() * options.upgrades.length)],
             });
         }
     }
