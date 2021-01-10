@@ -7,6 +7,7 @@ const NODE_VALUES = require('./util/Constants.json');
 
 const TRACK_COST_PER_UNIT = 10;
 const STARTING_FARE = 10;
+const STATION_COST = 500;
 
 // checks if array[i][j] is valid
 function isInBounds(array, i, j) {
@@ -172,8 +173,14 @@ export const Game = {
 			}
 
 			let player = NODE_VALUES.Player1;
+			let gPlayer = G.player1;
 			if (ctx.currentPlayer === "1") {
 				player = NODE_VALUES.Player2;
+				gPlayer = G.player2;
+			}
+
+			if (gPlayer.money < STATION_COST) {
+				return INVALID_MOVE;
 			}
 
 			G.grid[i][j] = new Station(stationNames.splice(Math.floor(Math.random() * stationNames.length), 1), 3, player);
