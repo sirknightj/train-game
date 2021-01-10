@@ -22,7 +22,7 @@
     },
     {
       "title": "Wider Seats",
-      "description": "Seats too small? Make them larger!",
+      "description": "Seats too small? Make them extra comfy!",
       "train_speed": 0,
       "train_capacity": -10,
       "num_lines": 0,
@@ -32,7 +32,7 @@
     },
     {
       "title": "Higher Fare",
-      "description": "Raises passenger fares.",
+      "description": "Raises passenger fares. May lower popularity.",
       "train_speed": 0,
       "train_capacity": 0,
       "num_lines": 0,
@@ -42,7 +42,7 @@
     },
     {
       "title": "Lower Fare",
-      "description": "Lowers passenger fares.",
+      "description": "Lowers passenger fares. May increase popularity.",
       "train_speed": 0,
       "train_capacity": 0,
       "num_lines": 0,
@@ -52,7 +52,7 @@
     },
     {
       "title": "Aerodynamic Trains",
-      "description": "Improve the speed and lessen the enviornmental impact!",
+      "description": "Improve the speed and lessen the environmental impact!",
       "train_speed": 20,
       "train_capacity": 0,
       "num_lines": 0,

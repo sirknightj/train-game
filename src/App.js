@@ -1,14 +1,17 @@
 import { Client } from 'boardgame.io/react';
-import { Local } from 'boardgame.io/multiplayer';
+import { Local, SocketIO } from 'boardgame.io/multiplayer';
 import { Header } from './Header';
 import { Game } from './Game';
 import { PlayerView } from './PlayerView';
 
+const SERVER_URL = 'localhost:8000';
+
 const GameClient = Client({
 	game: Game,
 	board: PlayerView,
-	multiplayer: Local(),
-	// debug: false,
+	// multiplayer: Local(),
+	multiplayer: SocketIO({ server: SERVER_URL }),
+	debug: false,
 });
 
 const App = () => (
