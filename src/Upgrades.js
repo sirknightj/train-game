@@ -1,6 +1,7 @@
 import React from 'react';
 const options = require('./util/upgrades.json');
 
+
 export class Upgrades extends React.Component {
 
     constructor(props) {
@@ -12,21 +13,20 @@ export class Upgrades extends React.Component {
         };
     }
 
-    onClick = () => {
-        // todo: Update player state
+    purchase = () => {
         if (!this.state.purchased) {
             alert("Purchase " + this.state.upgrade.title);
+            this.props.moves.purchaseUpgrade(this.state.upgrade);
+            this.setState({
+                purchased : true
+            });
         }
-
-        this.setState({
-           purchased : true
-        });
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.onClick}>{this.state.upgrade.title}</button>
+                <button onClick={this.purchase}>{this.state.upgrade.title}</button>
             </div>
         );
     }

@@ -279,6 +279,22 @@ export const Game = {
 			}
 
 			G.grid[i][j] = value;
+		},
+
+		purchaseUpgrade : (G, ctx, upgrade) => {
+			let player = [G.player1, G.player2];
+			let p_upgrade = [G.p1_upgrades, G.p2_upgrades];
+
+			if (player[ctx.currentPlayer].money >= upgrade.cost) {
+				player[ctx.currentPlayer].money -= upgrade.cost;
+				p_upgrade[ctx.currentPlayer].train_speed += upgrade.train_speed;
+				p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+				p_upgrade[ctx.currentPlayer].train_fare += upgrade.train_fare;
+				p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+				p_upgrade[ctx.currentPlayer].popularity += upgrade.popularity;
+			} else {
+				alert("Not enough money");
+			}
 		}
 	},
 

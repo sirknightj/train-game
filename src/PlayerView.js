@@ -1,6 +1,7 @@
 import React from 'react';
 import { Board } from './Board';
 import './PlayerView.scss';
+import { Upgrades } from './Upgrades'
 
 export class PlayerView extends React.Component {
 	undo() {
@@ -32,6 +33,11 @@ export class PlayerView extends React.Component {
 					<span><strong>Passengers (opp):</strong> {this.props.playerID === "0" ? this.props.G.player2.passengers_delivered : this.props.G.player1.passengers_delivered} / {this.props.G.passengers_required}</span>
 				</div>
 				<Board {...this.props} />
+				<div className="upgrades">
+					<Upgrades {...this.props}/>
+					<Upgrades {...this.props}/>
+					<Upgrades {...this.props}/>
+				</div>
 				<div className="buttons">
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
 					<button className="redo" onClick={() => this.redo()}>Redo</button>
