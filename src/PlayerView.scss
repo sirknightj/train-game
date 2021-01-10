@@ -1,14 +1,31 @@
 .PlayerView {
-  &.active {
+  &.active h2 {
     background: lightgreen;
   }
   &:not(.active) {
     cursor: not-allowed;
   }
 
+  h2 {
+    padding: 32px 128px;
+  }
+
   .player-info {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 0 128px;
+
     > span {
       display: block;
+      padding: 32px;
+
+      &:first-of-type {
+        padding-left: 16px;
+      }
+      &:last-of-type {
+        padding-right: 16px;
+      }
     }
   }
 

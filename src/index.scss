@@ -1,15 +1,24 @@
 *, ::before, ::after {
   margin: 0;
   padding: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: #dddddf;
+  color: #111;
 }
 
 html, body {
   height: 100%;
+}
+
+.bgio-client:last-of-type {
+  border-top: 10px solid #aaa;
+  margin-top: 128px;
+  padding-top: 64px;
 }

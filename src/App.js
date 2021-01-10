@@ -8,6 +8,7 @@ const GameClient = Client({
 	game: Game,
 	board: PlayerView,
 	multiplayer: Local(),
+	// debug: false,
 });
 
 const App = () => (
