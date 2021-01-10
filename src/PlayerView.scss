@@ -71,11 +71,13 @@
     }
   }
 
-  .buttons, .upgrades {
+  .buttons,
+  .upgrades {
     padding: 32px 128px;
   }
 
-  .upgrades button, .buttons button {
+  .upgrades button,
+  .buttons button {
     padding: 16px;
     margin-right: 64px;
     width: 160px;
@@ -150,5 +152,29 @@
         color: white;
       }
     }
+  }
+}
+
+.gameover .gameover-banner {
+  position: absolute;
+  width: 120vw;
+  top: 50%;
+  left: 0;
+  right: 0;
+  padding: 10vh;
+  font-size: 80px;
+  text-align: center;
+  transform-origin: 50vw 50vh;
+  transform: rotate(-20deg) translate(-200px, 100px);
+  background: transparentize(#ffc107, 0.8);
+  color: transparentize(#222, 0.1);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: 0.1s ease-out;
+
+  &:hover {
+    opacity: 0.1;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
   }
 }
