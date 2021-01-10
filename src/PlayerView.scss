@@ -110,6 +110,11 @@
     cursor: not-allowed;
   }
 
+  .end-turn {
+    float: right;
+    margin: 0;
+  }
+
   &.active {
     .undo {
       $color: #007bff;
@@ -137,25 +142,34 @@
 
       border-color: $color;
       color: $color;
+
       &:hover {
         background: $color;
         color: white;
       }
     }
     .clear {
-      $color: #1d191a;
+      $color: #6f42c1;
 
       border-color: $color;
       color: $color;
+      transition: 0.2s ease-out;
+
       &:hover {
         background: $color;
         color: white;
       }
     }
+
+    .clear[disabled] {
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s ease-out;
+    }
   }
 }
 
-.gameover .gameover-banner {
+.gameover-banner {
   position: absolute;
   width: 120vw;
   top: 50%;
@@ -171,6 +185,11 @@
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   transition: 0.1s ease-out;
+
+  display: none;
+  .gameover & {
+    display: block;
+  }
 
   &:hover {
     opacity: 0.1;
