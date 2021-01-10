@@ -194,7 +194,7 @@ export const Game = {
 
 			if (track.complete || track.owner !== player) {
 				// cannot add to already completed track or someone else's track
-				throw 'This error should never occur.';
+				throw Error('This error should never occur.');
 				// return INVALID_MOVE;
 			}
 
@@ -235,7 +235,7 @@ export const Game = {
 			G.grid[i][j] = value;
 		},
 
-		purchaseUpgrade : (G, ctx, upgrade) => {
+		purchaseUpgrade: (G, ctx, upgrade) => {
 			let player = [G.player1, G.player2];
 			let p_upgrade = [G.p1_upgrades, G.p2_upgrades];
 
@@ -247,7 +247,7 @@ export const Game = {
 				p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
 				p_upgrade[ctx.currentPlayer].popularity += upgrade.popularity;
 			} else {
-				alert("Not enough money");
+				return INVALID_MOVE;
 			}
 		}
 	},

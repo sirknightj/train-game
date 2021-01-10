@@ -14,6 +14,11 @@ export class Upgrades extends React.Component {
     }
 
     purchase = () => {
+        // ignore clicks when it is not player's turn
+        if (!this.props.isActive) {
+            return;
+        }
+
         if (!this.state.purchased) {
             alert("Purchase " + this.state.upgrade.title);
             this.props.moves.purchaseUpgrade(this.state.upgrade);
@@ -24,10 +29,13 @@ export class Upgrades extends React.Component {
     }
 
     render() {
+        const cost = this.state.upgrade.cost;
+        const money = this.props.G[(this.props.playerID === '0') ? 'player1' : 'player2'].money;
+
+        const canAfford = money >= cost;
+
         return (
-            <div>
-                <button onClick={this.purchase}>{this.state.upgrade.title}</button>
-            </div>
+            <button onClick={this.purchase} className={canAfford ? 'affordable' : 'expensive'}>{this.state.upgrade.title} (${cost})</button>
         );
     }
 }

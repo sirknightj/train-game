@@ -201,6 +201,10 @@ export class Board extends React.Component {
 
 	checkpointPath(i, j) {
 		let track = this.isPathInProgress();
+		if (!track) {
+			return;
+		}
+
 		let [i_prev, j_prev] = track.path[track.path.length - 1];
 
 		if (Math.abs(i_prev - i) <= 1 && Math.abs(j_prev - j) <= 1) {

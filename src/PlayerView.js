@@ -43,9 +43,12 @@ export class PlayerView extends React.Component {
 				</div>
 				<Board {...this.props} />
 				<div className="upgrades">
-					<Upgrades {...this.props} />
-					<Upgrades {...this.props} />
-					<Upgrades {...this.props} />
+					<h3>Upgrades</h3>
+					<div className="upgrades-container">
+						<Upgrades {...this.props} />
+						<Upgrades {...this.props} />
+						<Upgrades {...this.props} />
+					</div>
 				</div>
 				<div className="buttons">
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
