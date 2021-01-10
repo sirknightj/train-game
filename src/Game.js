@@ -87,7 +87,6 @@ export const Game = {
 				}
 			}
 
-
 			if (ctx.turn === NODE_VALUES.Player1) {
 				return;
 			}
