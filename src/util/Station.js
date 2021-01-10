@@ -5,11 +5,13 @@ class Station {
 	 * @param {String} name the name of the city
 	 * @param {number} sides
 	 * @param {number} owner Player this belongs to (one of NODE_VALUES), or EMPTY for none
+	 * @param {number} demand  (number of people at a station who want to take the train)
 	 */
-	constructor(name, sides, owner=NODE_VALUES.Empty) {
+	constructor(name, sides, owner=NODE_VALUES.Empty, demand) {
 		this.name = name;
 		this.sides = sides;
 		this.owner = owner;
+		this.demand = demand;
 	}
 }
 
