@@ -5,8 +5,8 @@ import { Header } from './Header';
 import { Game } from './Game';
 import { PlayerView } from './PlayerView';
 
-const SERVER_URL = 'localhost:8000';
-// const SERVER_URL = 'https://trainz-dot-io.herokuapp.com';
+// const SERVER_URL = 'localhost:8000';
+const SERVER_URL = 'https://trainz-dot-io.herokuapp.com';
 
 const GameClient = Client({
 	game: Game,
