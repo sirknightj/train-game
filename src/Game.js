@@ -138,8 +138,10 @@ export const Game = {
 
 				travelersBetweenStations *= Math.max((STARTING_FARE / upgrades.train_fare), 0.05);
 
-				travelersBetweenStations = Math.floor(travelersBetweenStations);
-				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);
+				travelersBetweenStations = Math.floor(Math.abs(travelersBetweenStations));
+
+				// Round down if the number of travelers is larger than the train capacity.
+				travelersBetweenStations = Math.abs(Math.min(upgrades.train_capacity, travelersBetweenStations));
 
 				player.money += travelersBetweenStations * upgrades.train_fare;
 				player.passengers_delivered += travelersBetweenStations;
@@ -284,10 +286,15 @@ export const Game = {
 				if (player[ctx.currentPlayer].money >= upgrade.cost) {
 					player[ctx.currentPlayer].money -= upgrade.cost;
 					p_upgrade[ctx.currentPlayer].train_speed += upgrade.train_speed;
+					p_upgrade[ctx.currentPlayer].train_speed = Math.max(p_upgrade[ctx.currentPlayer].train_speed, 0);
 					p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+					p_upgrade[ctx.currentPlayer].train_capacity = Math.max(p_upgrade[ctx.currentPlayer].train_capacity, 0);
 					p_upgrade[ctx.currentPlayer].train_fare += upgrade.train_fare;
+					p_upgrade[ctx.currentPlayer].train_fare = Math.max(p_upgrade[ctx.currentPlayer].train_fare, 0);
 					p_upgrade[ctx.currentPlayer].train_capacity += upgrade.train_capacity;
+					p_upgrade[ctx.currentPlayer].train_capacity = Math.max(p_upgrade[ctx.currentPlayer].train_capacity, 0);
 					p_upgrade[ctx.currentPlayer].popularity += upgrade.popularity;
+					p_upgrade[ctx.currentPlayer].popularity = Math.max(p_upgrade[ctx.currentPlayer].popularity, 0);
 				} else {
 					return INVALID_MOVE;
 				}

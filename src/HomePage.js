@@ -9,6 +9,7 @@ export class HomePage extends React.Component {
 		return (
 			<div className='HomePage'>
 				<h1>TRAINZ</h1>
+
 				<h2>How to play</h2>
 				<div className='instructions'>
 					<p>
