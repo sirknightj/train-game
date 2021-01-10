@@ -1,9 +1,12 @@
 .PlayerView {
   &.active h2 {
-    background: lightgreen;
+    background: #86F084;
+    box-shadow: 0 2px 4px #bbb;
   }
   &:not(.active) {
-    cursor: not-allowed;
+    svg, buttons {
+      cursor: not-allowed;
+    }
   }
 
   h2 {
@@ -15,6 +18,7 @@
     flex-flow: row wrap;
     justify-content: space-between;
     padding: 0 128px;
+    font-size: 1.25em;
 
     > span {
       display: block;
@@ -29,21 +33,59 @@
     }
   }
 
+  .buttons {
+    padding: 32px 128px;
+  }
+
   .buttons button {
     padding: 16px;
-    margin-left: 16px;
+    margin-right: 32px;
+    width: 160px;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px #aaa;
 
-    border: 0;
-    background: #eee;
+    border: 4px solid black;
+    outline: 0;
+    background: transparent;
     cursor: pointer;
+    transition: 0.15s ease-out;
   }
 
   &:not(.active) .buttons button {
-    cursor: not-allowed;
+    pointer-events: none;
   }
 
-  &.active .buttons button:hover {
-    background: green;
-  }
+  &.active {
+    .undo {
+      $color: #007bff;
 
+      border-color: $color;
+      color: $color;
+      &:hover {
+        background: $color;
+        color: white;
+      }
+    }
+
+    .redo {
+      $color: #28a745;
+
+      border-color: $color;
+      color: $color;
+      &:hover {
+        background: $color;
+        color: white;
+      }
+    }
+    .end-turn {
+      $color: #dc3545;
+
+      border-color: $color;
+      color: $color;
+      &:hover {
+        background: $color;
+        color: white;
+      }
+    }
+  }
 }

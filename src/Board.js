@@ -14,10 +14,6 @@ const COLORS = {
 };
 const BACKGROUND_COLOR = "#eee";
 
-// const PATH = [
-// 	[0, 0], [3, 3], [5, 3], [3, 5],
-// ];
-
 export class Board extends React.Component {
 	constructor(props) {
 		super(props);
@@ -194,7 +190,7 @@ export class Board extends React.Component {
 		}
 
 		return (
-			<path key={key} d={d} fill='none' stroke={color} strokeWidth='10' strokeLinecap='round' strokeLinejoin='round' strokeDasharray={dash} />
+			<path className={complete ? '' : 'building-track'} key={key} d={d} fill='none' stroke={color} strokeWidth='10' strokeLinecap='round' strokeLinejoin='round' strokeDasharray={dash} />
 		);
 	}
 

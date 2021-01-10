@@ -1,3 +1,20 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes moveDashes {
+  from {
+    stroke-dashoffset: 500px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .Board {
   .svg-container {
     width: 100%;
@@ -12,6 +29,7 @@
     border-radius: 16px;
 
     background: #eee;
+    box-shadow: 0 1px 5px #d0d0d0;
 
     .possible-station {
       opacity: 0;
@@ -26,6 +44,16 @@
       .possible-station:hover {
         opacity: 1;
       }
+      .station {
+        transform-origin: center;
+        transform-box: fill-box;
+        animation: 10s linear 0s infinite spin;
+      }
+
+      .building-track {
+        stroke-dasharray: 15px;
+        animation: 20s linear 0s infinite moveDashes;
+      }
     }
   }
 
@@ -37,6 +65,7 @@
     border-radius: 6px;
     border: 4px solid #eee;
     background: transparentize(#ddd, 0.5);
+    color: #222;
 
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
