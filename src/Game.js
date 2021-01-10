@@ -5,6 +5,7 @@ const { createTrack, addCheckpoint } = require('./util/Track');
 const NODE_VALUES = require('./util/Constants.json');
 
 const TRACK_COST_PER_UNIT = 10;
+const STARTING_FARE = 10;
 
 // checks if array[i][j] is valid
 function isInBounds(array, i, j) {
@@ -35,7 +36,7 @@ export const Game = {
 			train_speed: 50,
 			train_capacity: 15,
 			num_lines: 0,
-			train_fare: 10,
+			train_fare: STARTING_FARE,
 			popularity: 100,
 		}
 
@@ -43,7 +44,7 @@ export const Game = {
 			train_speed: 50,
 			train_capacity: 15,
 			num_lines: 0,
-			train_fare: 10,
+			train_fare: STARTING_FARE,
 			popularity: 100,
 		}
 
@@ -75,6 +76,17 @@ export const Game = {
 		onEnd: (G, ctx) => {
 			// called at end of turn
 
+			// refund an incomplete track
+			if (G.tracks.length && !G.tracks[G.tracks.length - 1].complete) {
+				const lastTrack = G.tracks.pop();
+				const cost = lastTrack.path.length * TRACK_COST_PER_UNIT;
+				if (lastTrack.owner === NODE_VALUES.Player1) {
+					G.player1.money += cost;
+				} else {
+					G.player2.money += cost;
+				}
+			}
+
 			if (ctx.turn === NODE_VALUES.Player1) {
 				return;
 			}
@@ -101,8 +113,10 @@ export const Game = {
 				}
 
 				// Calculate additional number of passengers that leave or join due to hidden properties
-				travelersBetweenStations *= (upgrades.train_speed / 100);
+				travelersBetweenStations *= Math.abs((upgrades.train_speed + track.path.length / 2) / 100);
 				travelersBetweenStations *= (upgrades.popularity / 100);
+
+				travelersBetweenStations *= (STARTING_FARE / upgrades.train_fare);
 
 				travelersBetweenStations = Math.floor(travelersBetweenStations);
 				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);
@@ -123,10 +137,10 @@ export const Game = {
 				}
 			} else if (G.player1.passengers_delivered >= G.passengers_required) {
 				// Player 1 wins.
-				ctx.events.endGame();
+				ctx.events.endGame({ winner: 1 });
 			} else if (G.player2.passengers_delivered >= G.passengers_required) {
 				// Player 2 wins.
-				ctx.events.endGame();
+				ctx.events.endGame({ winner: 2 });
 			}
 		}
 	},
@@ -248,6 +262,20 @@ export const Game = {
 				p_upgrade[ctx.currentPlayer].popularity += upgrade.popularity;
 			} else {
 				return INVALID_MOVE;
+			}
+		},
+
+		clearTrack: (G, ctx) => {
+			console.log('hello, im clicked')
+			if (G.tracks.length && !G.tracks[G.tracks.length - 1].complete) {
+				console.log('hello. im in the statment')
+				const lastTrack = G.tracks.pop();
+				const cost = lastTrack.path.length * TRACK_COST_PER_UNIT;
+				if (lastTrack.owner === NODE_VALUES.Player1) {
+					G.player1.money += cost;
+				} else {
+					G.player2.money += cost;
+				}
 			}
 		}
 	},

@@ -16,16 +16,28 @@ export class PlayerView extends React.Component {
 		this.props.events.endTurn();
 	}
 
+	clearTrack() {
+		this.props.moves.clearTrack();
+	}
+
 	render() {
 		let classes = ['PlayerView', `player-${this.props.playerID}`];
 		if (this.props.isActive) {
 			classes.push('active');
 		}
 
+		let winner;
+		if (this.props.ctx.gameover) {
+			winner = this.props.ctx.gameover.winner;
+			classes.push('gameover');
+		}
+
 		let p_name = (this.props.playerID === '0') ? 'player1' : 'player2';
 		let opp_name = (this.props.playerID === '0') ? 'player2' : 'player1';
+		let p_upgr = (this.props.playerID === '0') ? 'p1_upgrades' : 'p2_upgrades';
 		let playerData = this.props.G[p_name];
 		let opponentData = this.props.G[opp_name];
+		let upgrades = this.props.G[p_upgr];
 
 		return (
 			<div className={classes.join(' ')}>
@@ -39,6 +51,7 @@ export class PlayerView extends React.Component {
 				</div>
 				<div className="player-info">
 					<span><strong>Passengers Last Week:</strong> {playerData.passengers_delivered_this_week}</span>
+					<span><strong>Fare:</strong> ${upgrades.train_fare}</span>
 					<span><strong>Income From Fares Last Week:</strong> ${opponentData.money_earned_this_week}</span>
 				</div>
 				<Board {...this.props} />
@@ -53,7 +66,12 @@ export class PlayerView extends React.Component {
 				<div className="buttons">
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
 					<button className="redo" onClick={() => this.redo()}>Redo</button>
-					<button className="end-turn" onClick={() => this.endTurn()}>End turn</button>
+					<button disabled={!this.props.G.tracks.length || this.props.G.tracks[this.props.G.tracks.length - 1].complete} className="clear" onClick={() => this.clearTrack()}>Clear Track</button>
+					<button className="end-turn" onClick={() => this.endTurn()}>End Turn</button>
+				</div>
+
+				<div className="gameover-banner">
+					<h2>Player {winner} wins!</h2>
 				</div>
 			</div>
 		);

@@ -2,6 +2,10 @@ const CONSTANTS = require('./Constants.json');
 const Station = require('./Station.js');
 const CityNames = require('./city-names.json');
 
+function randint(n) {
+    return Math.floor(Math.random() * n);
+}
+
 class City {
     /**
      * @param {number} x the width of the grid layout of the city
@@ -13,7 +17,7 @@ class City {
             this.grid[i] = new Array(y).fill(CONSTANTS.Empty);
         }
 
-        this.name = CityNames.names[Math.floor(Math.random() * CityNames.names.length)];
+        this.name = CityNames.names[randint(CityNames.names.length)];
         this.x = x;
         this.y = y;
 
@@ -21,6 +25,7 @@ class City {
         this.grid[0][0] = new Station("1st Avenue", 3);
         this.grid[this.grid.length - 1][this.grid[0].length - 1] = new Station("Outlands", 3);
         this.grid[Math.round(this.grid.length / 2)][Math.round(this.grid[0].length / 2)] = new Station("Metrotown", 4);
+        this.grid[randint(this.grid.length)][randint(this.grid[0].length)] = new Station("Penn Station", 4);
     }
 }
 

@@ -20,7 +20,7 @@ export class Upgrades extends React.Component {
         }
 
         if (!this.state.purchased) {
-            alert("Purchase " + this.state.upgrade.title);
+            alert(`Suggessfully purchased ${this.state.upgrade.title}!`);
             this.props.moves.purchaseUpgrade(this.state.upgrade);
             this.setState({
                 purchased : true
@@ -35,7 +35,7 @@ export class Upgrades extends React.Component {
         const canAfford = money >= cost;
 
         return (
-            <button onClick={this.purchase} className={canAfford ? 'affordable' : 'expensive'}>{this.state.upgrade.title} (${cost})</button>
+            <button title={this.state.upgrade.description} onClick={this.purchase} className={canAfford ? 'affordable' : 'expensive'}>{this.state.upgrade.title} (${cost})</button>
         );
     }
 }

@@ -2,75 +2,73 @@
   "upgrades": [
     {
       "title": "Advertising",
+      "description": "Get some advertising for your rail network!",
       "train_speed": 0,
       "train_capacity": 0,
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 25,
-      "cost": 60
+      "cost": 100
     },
     {
       "title": "Smaller Seats",
+      "description": "Seats too big? Make them smaller!",
       "train_speed": 0,
       "train_capacity": 10,
       "num_lines": 0,
       "train_fare": 0,
       "popularity": -10,
-      "cost": 80
+      "cost": 150
     },
     {
       "title": "Wider Seats",
+      "description": "Seats too small? Make them extra comfy!",
       "train_speed": 0,
       "train_capacity": -10,
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 20,
-      "cost": 80
+      "cost": 150
     },
     {
       "title": "Higher Fare",
+      "description": "Raises passenger fares. May lower popularity.",
       "train_speed": 0,
       "train_capacity": 0,
       "num_lines": 0,
       "train_fare": 2,
       "popularity": -10,
-      "cost": 100
+      "cost": 200
     },
     {
       "title": "Lower Fare",
+      "description": "Lowers passenger fares. May increase popularity.",
       "train_speed": 0,
       "train_capacity": 0,
       "num_lines": 0,
       "train_fare": -1,
       "popularity": 15,
-      "cost": 100
+      "cost": 200
     },
     {
       "title": "Aerodynamic Trains",
+      "description": "Improve the speed and lessen the environmental impact!",
       "train_speed": 20,
       "train_capacity": 0,
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 10,
-      "cost": 80
+      "cost": 350
     },
     {
       "title": "Extra Carriage",
+      "description": "Adds an extra carriage to every train!",
       "train_speed": -5,
       "train_capacity": 20,
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 0,
-      "cost": 80
-    },
-    {
-      "title": "Comfy Cushions",
-      "train_speed": 0,
-      "train_capacity": 0,
-      "num_lines": 0,
-      "train_fare": 0,
-      "popularity": 15,
-      "cost": 80
+      "cost": 600
     }
   ]
 }
