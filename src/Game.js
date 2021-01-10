@@ -14,40 +14,40 @@ function isInBounds(array, i, j) {
 /**
  * Finds all the stations this line is connected to.
  */
-function findConnectingStations(grid, i, j, obj) {
-	if (obj.tilesSoFar.includes(grid[i][j]) || obj.stationsInLoop.includes(grid[i][j])) {
-		return obj;
-	}
-	if (i - 1 >= 0 && j - 1 >= 0) {
-		obj.tilesSoFar.push(grid[i - 1][j - 1]);
-		if (grid[i - 1][j - 1] !== NODE_VALUES.Empty && grid[i - 1][j - 1] !== NODE_VALUES.Player1 && grid[i - 1][j - 1] !== NODE_VALUES.Player2) {
-			obj.stationsInLoop.push(grid[i - 1][j - 1]);
-		}
-		obj = findConnectingStations(grid, i - 1, j - 1, obj);
-	}
-	if (i - 1 >= 0 && j + 1 < grid[0].length) {
-		obj.tilesSoFar.push(grid[i - 1][j + 1]);
-		if (grid[i - 1][j + 1] !== NODE_VALUES.Empty && grid[i - 1][j + 1] !== NODE_VALUES.Player1 && grid[i - 1][j + 1] !== NODE_VALUES.Player2) {
-			obj.stationsInLoop.push(grid[i - 1][j + 1]);
-		}
-		obj = findConnectingStations(grid, i - 1, j + 1, obj);
-	}
-	if (i + 1 < grid.length && j - 1 >= 0) {
-		obj.tilesSoFar.push(grid[i + 1][j - 1]);
-		if (grid[i + 1][j - 1] !== NODE_VALUES.Empty && grid[i + 1][j - 1] !== NODE_VALUES.Player1 && grid[i + 1][j - 1] !== NODE_VALUES.Player2) {
-			obj.stationsInLoop.push(grid[i + 1][j - 1]);
-		}
-		obj = findConnectingStations(grid, i + 1, j - 1, obj);
-	}
-	if (i + 1 < grid.length && j + 1 < grid[0].length) {
-		obj.tilesSoFar.push(grid[i + 1][j + 1]);
-		if (grid[i + 1][j + 1] !== NODE_VALUES.Empty && grid[i + 1][j + 1] !== NODE_VALUES.Player1 && grid[i + 1][j + 1] !== NODE_VALUES.Player2) {
-			obj.stationsInLoop.push(grid[i + 1][j + 1]);
-		}
-		obj = findConnectingStations(grid, i + 1, j + 1, obj);
-	}
-	return obj;
-}
+// function findConnectingStations(grid, i, j, obj) {
+// 	if (obj.tilesSoFar.includes(grid[i][j]) || obj.stationsInLoop.includes(grid[i][j])) {
+// 		return obj;
+// 	}
+// 	if (i - 1 >= 0 && j - 1 >= 0) {
+// 		obj.tilesSoFar.push(grid[i - 1][j - 1]);
+// 		if (grid[i - 1][j - 1] !== NODE_VALUES.Empty && grid[i - 1][j - 1] !== NODE_VALUES.Player1 && grid[i - 1][j - 1] !== NODE_VALUES.Player2) {
+// 			obj.stationsInLoop.push(grid[i - 1][j - 1]);
+// 		}
+// 		obj = findConnectingStations(grid, i - 1, j - 1, obj);
+// 	}
+// 	if (i - 1 >= 0 && j + 1 < grid[0].length) {
+// 		obj.tilesSoFar.push(grid[i - 1][j + 1]);
+// 		if (grid[i - 1][j + 1] !== NODE_VALUES.Empty && grid[i - 1][j + 1] !== NODE_VALUES.Player1 && grid[i - 1][j + 1] !== NODE_VALUES.Player2) {
+// 			obj.stationsInLoop.push(grid[i - 1][j + 1]);
+// 		}
+// 		obj = findConnectingStations(grid, i - 1, j + 1, obj);
+// 	}
+// 	if (i + 1 < grid.length && j - 1 >= 0) {
+// 		obj.tilesSoFar.push(grid[i + 1][j - 1]);
+// 		if (grid[i + 1][j - 1] !== NODE_VALUES.Empty && grid[i + 1][j - 1] !== NODE_VALUES.Player1 && grid[i + 1][j - 1] !== NODE_VALUES.Player2) {
+// 			obj.stationsInLoop.push(grid[i + 1][j - 1]);
+// 		}
+// 		obj = findConnectingStations(grid, i + 1, j - 1, obj);
+// 	}
+// 	if (i + 1 < grid.length && j + 1 < grid[0].length) {
+// 		obj.tilesSoFar.push(grid[i + 1][j + 1]);
+// 		if (grid[i + 1][j + 1] !== NODE_VALUES.Empty && grid[i + 1][j + 1] !== NODE_VALUES.Player1 && grid[i + 1][j + 1] !== NODE_VALUES.Player2) {
+// 			obj.stationsInLoop.push(grid[i + 1][j + 1]);
+// 		}
+// 		obj = findConnectingStations(grid, i + 1, j + 1, obj);
+// 	}
+// 	return obj;
+// }
 
 export const Game = {
 	setup: () => {
@@ -56,20 +56,22 @@ export const Game = {
 		let player1 = {
 			money: 100,
 			passengers_delivered: 0,
-			fare: 5,
+			money_earned_this_week: 0,
+			passengers_delivered_this_week: 0,
 		}
 
 		let player2 = {
 			money: 100,
 			passengers_delivered: 0,
-			fare: 5,
+			money_earned_this_week: 0,
+			passengers_delivered_this_week: 0,
 		}
 
 		let tracks = [];
 
 		let p1_upgrades = {
 			train_speed: 50,
-			train_capacity: 20,
+			train_capacity: 15,
 			num_lines: 0,
 			train_fare: 10,
 			popularity: 100,
@@ -77,7 +79,7 @@ export const Game = {
 
 		let p2_upgrades = {
 			train_speed: 50,
-			train_capacity: 20,
+			train_capacity: 15,
 			num_lines: 0,
 			train_fare: 10,
 			popularity: 100,
@@ -111,54 +113,44 @@ export const Game = {
 		onEnd: (G, ctx) => {
 			// called at end of turn
 
-			// search for networks coordinates to a single tile.
-			// playerOneNetworks: 2d-array of all track networks player one has.
-			// for example, if the board is [station1, player1track, player1track, station2, empty, station3, player1track, station4],
-			// then playerOneNetworks should be [[station1, station2], [station3, station4]]
-			let playerOneNetworks = [];
-			let playerTwoNetworks = [];
-			let tilesSoFar = [];
-			if (ctx.currentPlayer === "1") {
-				// Loop through every single tile
-				for (let i = 0; i < G.grid.length; i++) {
-					for (let j = 0; j < G.grid[0].length; j++) {
-						// If a player owns the track, then find every station connected to that track network.
-						if (G.grid[i][j] === NODE_VALUES.Player1 && !tilesSoFar.includes(G.grid[i][j])) {
-							let connectedStations = findConnectingStations(G.grid, i, j, { tilesSoFar: tilesSoFar, stationsInLoop: [] });
-							playerOneNetworks.push(connectedStations.stationsInLoop);
-							tilesSoFar.push(...connectedStations.tilesSoFar);
-						} else if (G.grid[i][j] === NODE_VALUES.Player2 && !tilesSoFar.includes(G.grid[i][j])) {
-							let connectedStations = findConnectingStations(G.grid, i, j, { tilesSoFar: tilesSoFar, stationsInLoop: [] });
-							playerTwoNetworks.push(connectedStations.stationsInLoop);
-							tilesSoFar.push(...connectedStations.tilesSoFar);
-						}
-					}
-				}
+			if (ctx.turn === NODE_VALUES.Player1) {
+				return;
 			}
 
-			// BEGIN DEBUGGING INFO. This prints out some stuff in the sidebar.
-			G.player1.playerOneNetworks = playerOneNetworks;
-			G.player2.playerTwoNetworks = playerTwoNetworks;
-			G.player1.tilesConsidered = tilesSoFar;
-			// END DEBUGGING INFO
+			G.player1.passengers_delivered_this_week = 0;
+			G.player2.passengers_delivered_this_week = 0;
+			G.player1.money_earned_this_week = 0;
+			G.player2.money_earned_this_week = 0;
 
-			// Loop through all the track networks each player has
-			for (let i = 0; i < playerOneNetworks.length; i++) {
-				let passengerToAdd = 0;
-				for (let station in playerOneNetworks[i]) {
-					passengerToAdd += (station.sides * 3);
-				}
-				G.player1.passengers_delivered += passengerToAdd;
-				G.player1.money += passengerToAdd * G.player1.fare;
-			}
+			for (let track of G.tracks) {
+				let startingStation = track.path[0];
+				startingStation = G.grid[startingStation[0]][startingStation[1]];
+				let endingStation = track.path[track.path.length - 1];
+				endingStation = G.grid[endingStation[0]][endingStation[1]];
 
-			for (let i = 0; i < playerTwoNetworks.length; i++) {
-				let passengerToAdd = 0;
-				for (let station in playerTwoNetworks[i]) {
-					passengerToAdd += (station.sides * 3);
+				let travelersBetweenStations = startingStation.sides + endingStation.sides;
+				travelersBetweenStations *= 3;
+
+				let player = G.player1;
+				let upgrades = G.p1_upgrades;
+				if (track.owner === NODE_VALUES.Player2) {
+					player = G.player2;
+					upgrades = G.p2_upgrades;
 				}
-				G.player2.passengers_delivered += passengerToAdd;
-				G.player2.money += passengerToAdd * G.player2.fare;
+
+				// Calculate additional number of passengers that leave or join due to hidden properties
+				travelersBetweenStations *= (upgrades.train_speed / 100);
+				travelersBetweenStations *= (upgrades.popularity / 100);
+
+				travelersBetweenStations = Math.floor(travelersBetweenStations);
+				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);
+
+				player.money += travelersBetweenStations * upgrades.train_fare;
+				player.passengers_delivered += travelersBetweenStations;
+				player.money = Math.round(player.money * 100) / 100;
+				player.passengers_delivered = Math.round(player.passengers_delivered);
+				player.money_earned_this_week += Math.round(travelersBetweenStations * upgrades.train_fare * 100) / 100;
+				player.passengers_delivered_this_week = Math.round(player.passengers_delivered_this_week + travelersBetweenStations);
 			}
 
 			// Handle victory condition. Increase the cap if needed.
