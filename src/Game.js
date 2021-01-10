@@ -4,6 +4,8 @@ const Station = require('./util/Station');
 const { createTrack, addCheckpoint } = require('./util/Track');
 const NODE_VALUES = require('./util/Constants.json');
 
+const TRACK_COST_PER_UNIT = 10;
+
 // checks if array[i][j] is valid
 function isInBounds(array, i, j) {
 	return (i >= 0 && j >= 0 && i < array.length && j < array[i].length);
@@ -206,8 +208,10 @@ export const Game = {
 			}
 
 			let player = NODE_VALUES.Player1;
+			let gPlayer = G.player1;
 			if (ctx.currentPlayer === "1") {
 				player = NODE_VALUES.Player2;
+				gPlayer = G.player2;
 			}
 
 			// cannot start track at an opponent's station
@@ -216,8 +220,10 @@ export const Game = {
 			}
 
 			const track = createTrack(player);
-			if (addCheckpoint(track.path, i, j)) {
+
+			if (addCheckpoint(track.path, i, j) && gPlayer.money >= TRACK_COST_PER_UNIT) {
 				G.tracks.push(track);
+				gPlayer.money -= TRACK_COST_PER_UNIT;
 			} else {
 				return INVALID_MOVE;
 			}
@@ -226,14 +232,16 @@ export const Game = {
 		checkpointPath: (G, ctx, i, j) => {
 			const track = G.tracks[G.tracks.length - 1];
 			let player = NODE_VALUES.Player1;
+			let gPlayer = G.player1;
 			if (ctx.currentPlayer === "1") {
 				player = NODE_VALUES.Player2;
+				gPlayer = G.player2;
 			}
 
 			if (track.complete || track.owner !== player) {
 				// cannot add to already completed track or someone else's track
-				console.error('This error should never occur.');
-				return INVALID_MOVE;
+				throw 'This error should never occur.';
+				// return INVALID_MOVE;
 			}
 
 			// cannot place track through someone else's station
@@ -244,6 +252,11 @@ export const Game = {
 			if (!addCheckpoint(track.path, i, j)) {
 				return INVALID_MOVE;
 			}
+
+			if (gPlayer.money < TRACK_COST_PER_UNIT) {
+				return INVALID_MOVE;
+			}
+			gPlayer.money -= TRACK_COST_PER_UNIT;
 
 			// complete track if ending at a player-owned or city-owned station
 			if (G.grid[i][j].owner === player || G.grid[i][j].owner === NODE_VALUES.Empty) {
