@@ -1,6 +1,6 @@
-const CONSTANTS = require('./Constants.json');
-const Station = require('./Station.js');
-const CityNames = require('./city-names.json');
+import CONSTANTS from './Constants.json';
+import Station from './Station.js';
+import CityNames from './city-names.json';
 
 function randint(n) {
     return Math.floor(Math.random() * n);
@@ -33,4 +33,4 @@ class City {
     }
 }
 
-module.exports = City;
+export default City;

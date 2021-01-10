@@ -21,24 +21,24 @@ function isCheckpointValid(path, i, j) {
 	return true;
 }
 
-module.exports = {
-	/**
-	 * @param {number} owner Player this belongs to (one of NODE_VALUES), or EMPTY for none
-	 */
-	createTrack: function(owner) {
-		return {
-			owner,
-			complete: false,  // false when the track is being constructed (within a turn)
-			path: [],
-		}
-	},
+/**
+ * @param {number} owner Player this belongs to (one of NODE_VALUES), or EMPTY for none
+ */
+function createTrack(owner) {
+	return {
+		owner,
+		complete: false,  // false when the track is being constructed (within a turn)
+		path: [],
+	}
+}
 
-	addCheckpoint: function(path, i, j) {
-		if (!isCheckpointValid(path, i, j)) {
-			return false;
-		}
+function addCheckpoint(path, i, j) {
+	if (!isCheckpointValid(path, i, j)) {
+		return false;
+	}
 
-		path.push([i, j]);
-		return true;
-	},
-};
+	path.push([i, j]);
+	return true;
+}
+
+export { createTrack, addCheckpoint };

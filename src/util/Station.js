@@ -1,4 +1,4 @@
-const NODE_VALUES = require('./Constants.json');
+import NODE_VALUES from './Constants.json';
 
 class Station {
 	/**
@@ -18,4 +18,4 @@ class Station {
 	}
 }
 
-module.exports = Station;
+export default Station;
