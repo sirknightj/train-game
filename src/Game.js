@@ -1,9 +1,9 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
-const City = require('./util/City');
-let stationNames = require('./util/station-names.json');
-const Station = require('./util/Station');
-const { createTrack, addCheckpoint } = require('./util/Track');
-const NODE_VALUES = require('./util/Constants.json');
+import City from './util/City';
+import stationNames from './util/station-names.json';
+import Station from './util/Station';
+import { createTrack, addCheckpoint } from './util/Track';
+import NODE_VALUES from './util/Constants.json';
 
 const TRACK_COST_PER_UNIT = 10;
 const STARTING_FARE = 10;
@@ -82,7 +82,8 @@ export const Game = {
 						let i = Math.floor(G.grid.length * Math.random());
 						let j = Math.floor(Math.random() * G.grid[0].length);
 						if (G.grid[i][j] === NODE_VALUES.Empty) {
-							G.grid[i][j] = new Station(stationNames.names.splice(Math.floor(Math.random() * stationNames.length), 1), Math.floor(Math.random() * 5));
+							const nameInt = Math.floor(Math.random() * stationNames.length);
+							G.grid[i][j] = new Station(stationNames.names[nameInt], Math.floor(Math.random() * 5));
 							break;
 						}
 					}
@@ -185,7 +186,8 @@ export const Game = {
 				return INVALID_MOVE;
 			}
 
-			G.grid[i][j] = new Station(stationNames.splice(Math.floor(Math.random() * stationNames.length), 1), 3, player);
+			const nameInt = Math.floor(Math.random() * stationNames.length);
+			G.grid[i][j] = new Station(stationNames.names[nameInt], 3, player);
 
 			if (G.tracks.length) {
 				const lastTrack = G.tracks[G.tracks.length - 1];

@@ -1,6 +1,5 @@
 import React from 'react';
-const options = require('./util/upgrades.json');
-
+import options from './util/upgrades.json';
 
 export class Upgrades extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Board.scss';
-const NODE_VALUES = require('./util/Constants.json');
+import NODE_VALUES from './util/Constants.json';
 
 const SVG_WIDTH = 1000;
 const SVG_HEIGHT = 500;
