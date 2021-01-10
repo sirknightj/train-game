@@ -1,16 +1,36 @@
 .PlayerView {
   &.active h2 {
-    background: #86F084;
+    background: #86f084;
     box-shadow: 0 2px 4px #bbb;
   }
   &:not(.active) {
-    svg, buttons {
+    svg,
+    buttons {
       cursor: not-allowed;
     }
   }
 
   h2 {
     padding: 32px 128px;
+    padding-left: 128px+16px;
+
+    .color {
+      $size: 32px;
+      width: $size;
+      height: $size;
+      display: inline-block;
+      margin: 0 8px;
+      border-radius: 50%;
+      vertical-align: middle;
+      transform: translateY(-3px);
+    }
+  }
+
+  &.player-0 .color {
+    background: #007bff;
+  }
+  &.player-1 .color {
+    background: #fd7e14;
   }
 
   .player-info {
@@ -29,6 +49,10 @@
       }
       &:last-of-type {
         padding-right: 16px;
+      }
+
+      &.no-money {
+        color: #dc3545;
       }
     }
   }

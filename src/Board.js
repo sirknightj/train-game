@@ -14,6 +14,106 @@ const COLORS = {
 };
 const BACKGROUND_COLOR = "#eee";
 
+const TRACK_COST_PER_UNIT = 10;
+
+// Find a shortest path between two points with least turns
+// this might be an NP-hard problem, this solution is very bad
+function findPath(grid, player, [startX, startY], [endX, endY]) { // Dijkstra variant
+	// try a straight horizontal / vertical route
+	if (startX === endX) {
+		let path = [];
+		let valid = true;
+		let n = startY;
+		while (valid && n !== endY) {
+			n += (endY > startY) ? 1 : -1;
+			path.push([startX, n]);
+			valid = !(grid[startX][n].owner && grid[startX][n].owner !== player);
+		}
+		if (valid) {
+			return path;
+		}
+	} else if (startY === endY) {
+		let path = [];
+		let valid = true;
+		let n = startX;
+		while (valid && n !== endX) {
+			n += (endX > startX) ? 1 : -1;
+			path.push([n, startY]);
+			valid = !(grid[n][startY].owner && grid[n][startY].owner !== player);
+		}
+		if (valid) {
+			return path;
+		}
+	}
+
+	const toValue = (x, y) => x * 1000 + y;
+	const visited = new Map();
+	visited.set(toValue(startX, startY), null);
+	let queue = [[startX, startY]];
+
+	let bestPath = null;
+	let bestTurns = -1;
+	let bestLength = -1;
+
+	while (queue.length) {
+		let [x, y] = queue.shift();
+		if (x === endX && y === endY) {
+			// return the path
+
+			let numTurns = 0;
+			let path = [];
+			let last = [x, y];
+			let direction = [0, 0];
+			let length = 0;
+
+			while (last !== null) {
+				path.unshift(last);
+				let next = visited.get(toValue(...last));
+
+				if (next !== null) {
+					let diff = [next[0] - last[0], next[1] - last[1]];
+					if (diff[0] !== direction[0] || diff[1] !== direction[1]) {
+						numTurns++;
+						direction = diff;
+					}
+					length += diff[0] * diff[0] + diff[1] * diff[1];
+				}
+
+				last = next;
+			}
+
+			if (bestPath === null || numTurns < bestTurns || (numTurns === bestTurns && length < bestLength)) {
+				bestTurns = numTurns;
+				bestLength = length;
+				bestPath = path;
+			} else if (path.length > bestPath.length) {
+				break;
+			}
+
+			continue;
+		}
+
+		for (let i = x - 1; i <= x + 1; i++) {
+			for (let j = y - 1; j <= y + 1; j++) {
+				if (i < 0 || j < 0 || i >= grid.length || j >= grid[i].length ||
+					(grid[i][j].owner && grid[i][j].owner !== player)) {
+					continue;
+				}
+
+				if (!visited.has(toValue(i, j))) {
+					visited.set(toValue(i, j), [x, y]);
+					queue.push([i, j]);
+				}
+			}
+		}
+	}
+
+	if (bestPath) {
+		bestPath.shift();
+		return bestPath;
+	}
+}
+
 export class Board extends React.Component {
 	constructor(props) {
 		super(props);
@@ -32,7 +132,6 @@ export class Board extends React.Component {
 					borderColor: COLORS['None']
 				},
 			},
-			creatingPath: false,
 		};
 	}
 
@@ -40,20 +139,22 @@ export class Board extends React.Component {
 		const CITY_SIZE = [this.props.G.grid.length, this.props.G.grid[0].length];
 		let cx = (j + 0.5) / CITY_SIZE[1] * SVG_WIDTH;
 		let cy = (i + 0.5) / CITY_SIZE[0] * SVG_HEIGHT;
-		return {cx, cy};
+		return { cx, cy };
+	}
+
+	isPathInProgress() {
+		if (this.props.G.tracks.length) {
+			let lastTrack = this.props.G.tracks[this.props.G.tracks.length - 1];
+			if (!lastTrack.complete && lastTrack.owner === +this.props.playerID + 1) {
+				return lastTrack;
+			}
+		}
+		return false;
 	}
 
 	onClick(e, i, j) {
 		if (e.buttons === 1) {  // primary
-			let isInProgress = false;
-			if (this.props.G.tracks.length) {
-				let lastTrack = this.props.G.tracks[this.props.G.tracks.length - 1];
-				if (!lastTrack.complete && lastTrack.owner === +this.props.playerID + 1) {
-					isInProgress = true;
-				}
-			}
-
-			if (isInProgress) {
+			if (this.isPathInProgress()) {
 				this.checkpointPath(i, j);
 			} else {
 				this.startPath(i, j);
@@ -84,7 +185,10 @@ export class Board extends React.Component {
 
 		// check for nearby stations
 		for (let x = i - 1; x <= i + 1; x++) {
-			for (let y = j -1; y <= j + 1; y++) {
+			for (let y = j - 1; y <= j + 1; y++) {
+				if (x < 0 || y < 0 || x >= this.props.G.grid.length || y >= this.props.G.grid[x].length) {
+					continue;
+				}
 				let el2 = this.props.G.grid[x][y];
 				if (el2.owner === +this.props.playerID + 1) {
 					this.startPath(x, y);
@@ -96,28 +200,40 @@ export class Board extends React.Component {
 	}
 
 	checkpointPath(i, j) {
-		this.props.moves.checkpointPath(i, j);
+		let track = this.isPathInProgress();
+		let [i_prev, j_prev] = track.path[track.path.length - 1];
+
+		if (Math.abs(i_prev - i) <= 1 && Math.abs(j_prev - j) <= 1) {
+			// one away from previous
+			this.props.moves.checkpointPath(i, j);
+			return;
+		}
+
+		let path = findPath(this.props.G.grid, +this.props.playerID + 1, [i_prev, j_prev], [i, j]);
+		if (path) {
+			let money = this.props.G[(this.props.playerID === '0') ? 'player1' : 'player2'].money;
+			if (TRACK_COST_PER_UNIT * path.length > money) {
+				// no way to build this with money
+				return;
+			}
+
+			for (let [x, y] of path) {
+				this.props.moves.checkpointPath(x, y);
+			}
+		}
 	}
 
 	onHover(e, i, j) {
 		const el = this.props.G.grid[i][j];
-		let name, sides, owner, borderColor;
 
 		if (el === NODE_VALUES.Empty) {
-			if (this.state.creatingPath) {
-				return;
-			}
-
-			name = 'None';
-			sides = 3;
-			owner = 'None';
-			borderColor = COLORS['None'];
-		} else {
-			name = el.name;
-			sides = el.sides;
-			owner = el.owner;
-			borderColor = COLORS[el.owner];
+			return;
 		}
+
+		let name = el.name;
+		let sides = el.sides;
+		let owner = el.owner;
+		let borderColor = COLORS[el.owner];
 
 		let [mouseX, mouseY] = [e.pageX, e.pageY];
 		this.setState({
@@ -139,7 +255,7 @@ export class Board extends React.Component {
 		let className = 'station';
 		let color;
 		let sides;
-		let {cx, cy} = this.indexToCoord(i, j);
+		let { cx, cy } = this.indexToCoord(i, j);
 
 		const id = i * CITY_SIZE[1] + j;
 		let points = [];
@@ -178,14 +294,14 @@ export class Board extends React.Component {
 	}
 
 	makeTrackSVG(track, key) {
-		const {owner, path, complete} = track;
+		const { owner, path, complete } = track;
 		const color = COLORS[owner];
 		const dash = complete ? 0 : 15;
 
 		const start = this.indexToCoord(...path[0]);
 		let d = `M ${start.cx} ${start.cy}`;
 		for (let i = 1; i < path.length; i++) {
-			let {cx, cy} = this.indexToCoord(...path[i]);
+			let { cx, cy } = this.indexToCoord(...path[i]);
 			d += ` L ${cx} ${cy}`;
 		}
 

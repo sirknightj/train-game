@@ -21,15 +21,20 @@ export class PlayerView extends React.Component {
 			classes.push('active');
 		}
 
+		let p_name = (this.props.playerID === '0') ? 'player1' : 'player2';
+		let opp_name = (this.props.playerID === '0') ? 'player2' : 'player1';
+		let playerData = this.props.G[p_name];
+		let opponentData = this.props.G[opp_name];
+
 		return (
 			<div className={classes.join(' ')}>
-				<h2>Player {(+this.props.playerID + 1)}</h2>
+				<h2>Player {(+this.props.playerID + 1)} <span className='color'></span></h2>
 				<div className="player-info">
 					<span><strong>Week:</strong> {Math.floor((this.props.ctx.turn - 1) / 2) + 1}</span>
 					<span><strong>Income:</strong> ${(Math.floor((this.props.ctx.turn - 1) / 2) + 4) * 25}/week</span>
-					<span><strong>Money:</strong> ${this.props.playerID === "0" ? this.props.G.player1.money : this.props.G.player2.money}</span>
-					<span><strong>Passengers (you):</strong> {this.props.playerID === "0" ? this.props.G.player1.passengers_delivered : this.props.G.player2.passengers_delivered} / {this.props.G.passengers_required}</span>
-					<span><strong>Passengers (opp):</strong> {this.props.playerID === "0" ? this.props.G.player2.passengers_delivered : this.props.G.player1.passengers_delivered} / {this.props.G.passengers_required}</span>
+					<span className={playerData.money > 0 ? '' : 'no-money'}><strong>Money:</strong> ${playerData.money}</span>
+					<span><strong>Passengers (you):</strong> {playerData.passengers_delivered} / {this.props.G.passengers_required}</span>
+					<span><strong>Passengers (opp):</strong> {opponentData.passengers_delivered} / {this.props.G.passengers_required}</span>
 				</div>
 				<Board {...this.props} />
 				<div className="buttons">
