@@ -11,44 +11,6 @@ function isInBounds(array, i, j) {
 	return (i >= 0 && j >= 0 && i < array.length && j < array[i].length);
 }
 
-/**
- * Finds all the stations this line is connected to.
- */
-// function findConnectingStations(grid, i, j, obj) {
-// 	if (obj.tilesSoFar.includes(grid[i][j]) || obj.stationsInLoop.includes(grid[i][j])) {
-// 		return obj;
-// 	}
-// 	if (i - 1 >= 0 && j - 1 >= 0) {
-// 		obj.tilesSoFar.push(grid[i - 1][j - 1]);
-// 		if (grid[i - 1][j - 1] !== NODE_VALUES.Empty && grid[i - 1][j - 1] !== NODE_VALUES.Player1 && grid[i - 1][j - 1] !== NODE_VALUES.Player2) {
-// 			obj.stationsInLoop.push(grid[i - 1][j - 1]);
-// 		}
-// 		obj = findConnectingStations(grid, i - 1, j - 1, obj);
-// 	}
-// 	if (i - 1 >= 0 && j + 1 < grid[0].length) {
-// 		obj.tilesSoFar.push(grid[i - 1][j + 1]);
-// 		if (grid[i - 1][j + 1] !== NODE_VALUES.Empty && grid[i - 1][j + 1] !== NODE_VALUES.Player1 && grid[i - 1][j + 1] !== NODE_VALUES.Player2) {
-// 			obj.stationsInLoop.push(grid[i - 1][j + 1]);
-// 		}
-// 		obj = findConnectingStations(grid, i - 1, j + 1, obj);
-// 	}
-// 	if (i + 1 < grid.length && j - 1 >= 0) {
-// 		obj.tilesSoFar.push(grid[i + 1][j - 1]);
-// 		if (grid[i + 1][j - 1] !== NODE_VALUES.Empty && grid[i + 1][j - 1] !== NODE_VALUES.Player1 && grid[i + 1][j - 1] !== NODE_VALUES.Player2) {
-// 			obj.stationsInLoop.push(grid[i + 1][j - 1]);
-// 		}
-// 		obj = findConnectingStations(grid, i + 1, j - 1, obj);
-// 	}
-// 	if (i + 1 < grid.length && j + 1 < grid[0].length) {
-// 		obj.tilesSoFar.push(grid[i + 1][j + 1]);
-// 		if (grid[i + 1][j + 1] !== NODE_VALUES.Empty && grid[i + 1][j + 1] !== NODE_VALUES.Player1 && grid[i + 1][j + 1] !== NODE_VALUES.Player2) {
-// 			obj.stationsInLoop.push(grid[i + 1][j + 1]);
-// 		}
-// 		obj = findConnectingStations(grid, i + 1, j + 1, obj);
-// 	}
-// 	return obj;
-// }
-
 export const Game = {
 	setup: () => {
 		let { name, grid } = new City(15, 30);
