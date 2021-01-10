@@ -25,11 +25,11 @@ export class PlayerView extends React.Component {
 			<div className={classes.join(' ')}>
 				<h2>Player {(+this.props.playerID + 1)}</h2>
 				<div className="player-info">
-					<span><strong>Week:</strong> {this.props.ctx.turn}</span>
-					<span><strong>Income:</strong> $123/week</span>
-					<span><strong>Money:</strong> $456</span>
-					<span><strong>Passengers (you):</strong> 789 / 1000</span>
-					<span><strong>Passengers (opp):</strong> 890 / 1000</span>
+					<span><strong>Week:</strong> {Math.floor((this.props.ctx.turn - 1) / 2) + 1}</span>
+					<span><strong>Income:</strong> ${(Math.floor((this.props.ctx.turn - 1) / 2) + 4) * 25}/week</span>
+					<span><strong>Money:</strong> ${this.props.playerID === "0" ? this.props.G.player1.money : this.props.G.player2.money}</span>
+					<span><strong>Passengers (you):</strong> {this.props.playerID === "0" ? this.props.G.player1.passengers_delivered : this.props.G.player2.passengers_delivered} / {this.props.G.passengers_required}</span>
+					<span><strong>Passengers (opp):</strong> {this.props.playerID === "0" ? this.props.G.player2.passengers_delivered : this.props.G.player1.passengers_delivered} / {this.props.G.passengers_required}</span>
 				</div>
 				<Board {...this.props} />
 				<div className="buttons">
