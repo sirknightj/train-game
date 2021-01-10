@@ -137,8 +137,10 @@ export const Game = {
 
 				travelersBetweenStations *= Math.max((STARTING_FARE / upgrades.train_fare), 0.05);
 
-				travelersBetweenStations = Math.floor(travelersBetweenStations);
-				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);
+				travelersBetweenStations = Math.floor(Math.abs(travelersBetweenStations));
+
+				// Round down if the number of travelers is larger than the train capacity.
+				travelersBetweenStations = Math.abs(Math.min(upgrades.train_capacity, travelersBetweenStations));
 
 				player.money += travelersBetweenStations * upgrades.train_fare;
 				player.passengers_delivered += travelersBetweenStations;
