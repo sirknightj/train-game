@@ -131,10 +131,10 @@ export const Game = {
 				}
 
 				// Calculate additional number of passengers that leave or join due to hidden properties
-				travelersBetweenStations *= Math.abs((upgrades.train_speed + track.path.length / 2) / 100);
-				travelersBetweenStations *= (upgrades.popularity / 100);
+				travelersBetweenStations *= Math.max(((upgrades.train_speed + track.path.length / 2) / 100), 0.05);
+				travelersBetweenStations *= Math.max((upgrades.popularity / 100), 0.05);
 
-				travelersBetweenStations *= (STARTING_FARE / upgrades.train_fare);
+				travelersBetweenStations *= Math.max((STARTING_FARE / upgrades.train_fare), 0.05);
 
 				travelersBetweenStations = Math.floor(travelersBetweenStations);
 				travelersBetweenStations = Math.min(upgrades.train_capacity, travelersBetweenStations);
