@@ -1,25 +1,20 @@
-import { Client } from 'boardgame.io/react';
-import { Local, SocketIO } from 'boardgame.io/multiplayer';
-import { Header } from './Header';
-import { Game } from './Game';
-import { PlayerView } from './PlayerView';
+import { HomePage } from './HomePage';
+import { Match } from './Match';
+import { Switch, Route, useHistory } from 'react-router';
 
-const SERVER_URL = 'localhost:8000';
+const App = () => {
+	const history = useHistory();
 
-const GameClient = Client({
-	game: Game,
-	board: PlayerView,
-	// multiplayer: Local(),
-	multiplayer: SocketIO({ server: SERVER_URL }),
-	debug: false,
-});
-
-const App = () => (
-	<div>
-		<Header />
-		<GameClient playerID="0" />
-		<GameClient playerID="1" />
-	</div>
-);
+	return (
+		<Switch>
+			<Route
+				path="/"
+				exact
+				render={(props) => <HomePage {...props} history={history} />}
+			/>
+			<Route path="/game/:match/:id" component={Match} />
+		</Switch >
+	);
+};
 
 export default App;

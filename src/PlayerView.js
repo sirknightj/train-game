@@ -67,7 +67,7 @@ export class PlayerView extends React.Component {
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
 					<button className="redo" onClick={() => this.redo()}>Redo</button>
 					<button disabled={!this.props.G.tracks.length || this.props.G.tracks[this.props.G.tracks.length - 1].complete} className="clear" onClick={() => this.clearTrack()}>Clear Track</button>
-					<button className="end-turn" onClick={() => this.endTurn()}>End Turn</button>
+					<button disabled={!this.props.isActive} className="end-turn" onClick={() => this.endTurn()}>End Turn</button>
 				</div>
 
 				<div className="gameover-banner">
