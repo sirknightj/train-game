@@ -1,5 +1,6 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
 const City = require('./util/City');
+let stationNames = require('./util/station-names.json');
 const Station = require('./util/Station');
 const { createTrack, addCheckpoint } = require('./util/Track');
 const NODE_VALUES = require('./util/Constants.json');
@@ -12,9 +13,10 @@ function isInBounds(array, i, j) {
 	return (i >= 0 && j >= 0 && i < array.length && j < array[i].length);
 }
 
+
 export const Game = {
 	setup: () => {
-		let { name, grid } = new City(15, 30);
+		let { name, grid } = new City(15, 30, stationNames.names);
 
 		let player1 = {
 			money: 100,
@@ -158,7 +160,7 @@ export const Game = {
 				player = NODE_VALUES.Player2;
 			}
 
-			G.grid[i][j] = new Station(`Station ${Math.floor(Math.random() * 100)}`, 3, player);
+			G.grid[i][j] = new Station(stationNames.splice(Math.floor(Math.random() * stationNames.length), 1), 3, player);
 
 			if (G.tracks.length) {
 				const lastTrack = G.tracks[G.tracks.length - 1];
@@ -269,9 +271,7 @@ export const Game = {
 		},
 
 		clearTrack: (G, ctx) => {
-			console.log('hello, im clicked')
 			if (G.tracks.length && !G.tracks[G.tracks.length - 1].complete) {
-				console.log('hello. im in the statment')
 				const lastTrack = G.tracks.pop();
 				const cost = lastTrack.path.length * TRACK_COST_PER_UNIT;
 				if (lastTrack.owner === NODE_VALUES.Player1) {
