@@ -22,6 +22,12 @@ export class PlayerView extends React.Component {
 			classes.push('active');
 		}
 
+		let winner;
+		if (this.props.ctx.gameover) {
+			winner = this.props.ctx.gameover.winner;
+			classes.push('gameover');
+		}
+
 		let p_name = (this.props.playerID === '0') ? 'player1' : 'player2';
 		let opp_name = (this.props.playerID === '0') ? 'player2' : 'player1';
 		let playerData = this.props.G[p_name];
@@ -54,6 +60,10 @@ export class PlayerView extends React.Component {
 					<button className="undo" onClick={() => this.undo()}>Undo</button>
 					<button className="redo" onClick={() => this.redo()}>Redo</button>
 					<button className="end-turn" onClick={() => this.endTurn()}>End turn</button>
+				</div>
+
+				<div className="gameover-banner">
+					<h2>Player {winner} wins!</h2>
 				</div>
 			</div>
 		);

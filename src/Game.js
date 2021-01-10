@@ -135,10 +135,10 @@ export const Game = {
 				}
 			} else if (G.player1.passengers_delivered >= G.passengers_required) {
 				// Player 1 wins.
-				ctx.events.endGame();
+				ctx.events.endGame({ winner: 1 });
 			} else if (G.player2.passengers_delivered >= G.passengers_required) {
 				// Player 2 wins.
-				ctx.events.endGame();
+				ctx.events.endGame({ winner: 2 });
 			}
 		}
 	},
