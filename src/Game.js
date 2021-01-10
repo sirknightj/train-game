@@ -9,8 +9,8 @@ function isInBounds(array, i, j) {
 }
 
 /**
-	  * Finds all the stations this line is connected to.
-	  */
+ * Finds all the stations this line is connected to.
+ */
 function findConnectingStations(grid, i, j, obj) {
 	if (obj.tilesSoFar.includes(grid[i][j]) || obj.stationsInLoop.includes(grid[i][j])) {
 		return obj;
@@ -62,6 +62,8 @@ export const Game = {
 			fare: 5,
 		}
 
+		let tracks = [];
+
 		let p1_upgrades = {
 			train_speed: 50,
 			train_capacity: 20,
@@ -78,6 +80,8 @@ export const Game = {
 			popularity: 100,
 		}
 
+		let passengers_required = 1000;
+
 		return {
 			city_name: name,
 			grid: grid,
@@ -85,12 +89,20 @@ export const Game = {
 			p2_upgrades: p2_upgrades,
 			player1: player1,
 			player2: player2,
+			tracks: tracks,
+			passengers_required: passengers_required,
 		};
 	},
 
 	turn: {
 		onBegin: (G, ctx) => {
 			// called at beginning of turn
+
+			if (ctx.currentPlayer === "0") {
+				let incomeToAward = (Math.floor((ctx.turn - 1) / 2) + 4) * 25;
+				G.player1.money += incomeToAward;
+				G.player2.money += incomeToAward;
+			}
 		},
 
 		onEnd: (G, ctx) => {
@@ -100,7 +112,7 @@ export const Game = {
 			// playerOneNetworks: 2d-array of all track networks player one has.
 			// for example, if the board is [station1, player1track, player1track, station2, empty, station3, player1track, station4],
 			// then playerOneNetworks should be [[station1, station2], [station3, station4]]
-			let playerOneNetworks = [];  
+			let playerOneNetworks = [];
 			let playerTwoNetworks = [];
 			let tilesSoFar = [];
 			if (ctx.currentPlayer === "1") {
@@ -144,6 +156,20 @@ export const Game = {
 				}
 				G.player2.passengers_delivered += passengerToAdd;
 				G.player2.money += passengerToAdd * G.player2.fare;
+			}
+
+			// Handle victory condition. Increase the cap if needed.
+			if (G.player1.passengers_delivered >= G.passengers_required && G.player2.passengers_delivered >= G.passengers_required) {
+				// Increase the cap, as it's a draw.
+				while (G.player1.passengers_delivered >= G.passengers_required || G.player2.passengers_delivered >= G.passengers_required) {
+					G.passengers_required *= 1.1;
+				}
+			} else if (G.player1.passengers_delivered >= G.passengers_required) {
+				// Player 1 wins.
+				ctx.events.endGame();
+			} else if (G.player2.passengers_delivered >= G.passengers_required) {
+				// Player 2 wins.
+				ctx.events.endGame();
 			}
 		}
 	},
