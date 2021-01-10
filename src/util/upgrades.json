@@ -7,7 +7,7 @@
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 25,
-      "cost": 100
+      "cost": 60
     },
     {
       "title": "Smaller Seats",
@@ -16,7 +16,7 @@
       "num_lines": 0,
       "train_fare": 0,
       "popularity": -10,
-      "cost": 100
+      "cost": 80
     },
     {
       "title": "Wider Seats",
@@ -25,7 +25,7 @@
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 20,
-      "cost": 100
+      "cost": 80
     },
     {
       "title": "Higher Fare",
@@ -52,7 +52,7 @@
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 10,
-      "cost": 100
+      "cost": 80
     },
     {
       "title": "Extra Carriage",
@@ -61,7 +61,16 @@
       "num_lines": 0,
       "train_fare": 0,
       "popularity": 0,
-      "cost": 100
+      "cost": 80
+    },
+    {
+      "title": "Comfy Cushions",
+      "train_speed": 0,
+      "train_capacity": 0,
+      "num_lines": 0,
+      "train_fare": 0,
+      "popularity": 15,
+      "cost": 80
     }
   ]
 }
